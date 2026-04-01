@@ -1,33 +1,22 @@
-package com.example.demo;
+package com.example.demo.service;
 
-import org.springframework.web.bind.annotation.*;
 import java.util.*;
+import com.example.demo.model.Student;
 
-@RestController
-public class HelloController {
+public class StudentService {
 
     List<Student> list = new ArrayList<>();
 
-    @GetMapping("/")
-    public String home() {
-        return "Student API running 🚀";
-    }
-
-    @PostMapping("/add")
-    public String addStudent(@RequestBody Student s) {
+    public String addStudent(Student s) {
         list.add(s);
         return "Student Added!";
     }
 
-    @GetMapping("/students")
     public List<Student> getStudents() {
         return list;
     }
 
-    // 🔥 UPDATE API
-    @PutMapping("/update/{id}")
-    public String updateStudent(@PathVariable int id, @RequestBody Student newData) {
-
+    public String updateStudent(int id, Student newData) {
         for(Student s : list) {
             if(s.getId() == id) {
                 s.setName(newData.getName());
@@ -35,21 +24,16 @@ public class HelloController {
                 return "Student Updated!";
             }
         }
-
         return "Student Not Found!";
     }
 
-    // 🔥 DELETE API
-    @DeleteMapping("/delete/{id}")
-    public String deleteStudent(@PathVariable int id) {
-
+    public String deleteStudent(int id) {
         for(int i = 0; i < list.size(); i++) {
             if(list.get(i).getId() == id) {
                 list.remove(i);
                 return "Student Deleted!";
             }
         }
-
         return "Student Not Found!";
     }
 }
