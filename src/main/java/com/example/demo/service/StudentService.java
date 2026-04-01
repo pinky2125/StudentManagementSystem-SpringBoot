@@ -8,6 +8,19 @@ public class StudentService {
     List<Student> list = new ArrayList<>();
 
     public String addStudent(Student s) {
+
+        // 🔥 Marks validation
+        if(s.getMarks() < 0 || s.getMarks() > 100) {
+            return "Invalid Marks! (0-100 allowed)";
+        }
+
+        // 🔥 Duplicate ID check
+        for(Student st : list) {
+            if(st.getId() == s.getId()) {
+                return "ID already exists!";
+            }
+        }
+
         list.add(s);
         return "Student Added!";
     }
