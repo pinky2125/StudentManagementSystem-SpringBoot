@@ -1,4 +1,5 @@
 package com.example.demo.service;
+import com.example.demo.InvalidDataException;
 
 import java.util.*;
 import com.example.demo.model.Student;
@@ -9,15 +10,13 @@ public class StudentService {
 
     public String addStudent(Student s) {
 
-        // 🔥 Marks validation
         if(s.getMarks() < 0 || s.getMarks() > 100) {
-            return "Invalid Marks! (0-100 allowed)";
+            throw new InvalidDataException("Marks should be between 0 and 100!");
         }
 
-        // 🔥 Duplicate ID check
         for(Student st : list) {
             if(st.getId() == s.getId()) {
-                return "ID already exists!";
+                throw new InvalidDataException("ID already exists!");
             }
         }
 
